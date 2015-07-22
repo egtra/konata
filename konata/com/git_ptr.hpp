@@ -34,8 +34,13 @@ protected:
 	static IGlobalInterfaceTablePtr get_git()
 	{
 		IGlobalInterfaceTablePtr ret;
-		throw_if_failed(CoCreateInstance(CLSID_StdGlobalInterfaceTable, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&ret)));
+		throw_if_failed(get_git_nothrow(ret));
 		return ret;
+	}
+
+	static HRESULT get_git_nothrow(IGlobalInterfaceTablePtr& result) throw()
+	{
+		return CoCreateInstance(CLSID_StdGlobalInterfaceTable, nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&result));
 	}
 
 	template<typename T>
@@ -52,7 +57,11 @@ protected:
 	{
 		if (cookie == 0)
 			return;
-		(void)get_git()->RevokeInterfaceFromGlobal(cookie);
+		IGlobalInterfaceTablePtr git;
+		if (SUCCEEDED(get_git_nothrow(git)))
+		{
+			(void)git->RevokeInterfaceFromGlobal(cookie);
+		}
 	}
 
 	template<typename T>
@@ -165,7 +174,7 @@ public:
 	void reset() throw() { revoke_git(release()); }
 	void reset(_In_opt_ T* p) { reset(register_git(p)); }
 	void reset(DWORD cookie) { revoke_git(m_cookie.exchange(cookie)); }
-	
+
 #if _MSC_VER >= 1600
 	git_ptr<T> exchange(git_ptr<T>&& desired) throw()
 	{
