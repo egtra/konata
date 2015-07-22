@@ -12,6 +12,7 @@ http://www.boost.org/LICENSE_1_0.txt )
 #pragma once
 
 #include <atomic>
+#include <ostream>
 #include <system_error>
 
 #include <utility> // swap
@@ -199,6 +200,18 @@ template<typename T>
 git_ptr<T> make_git(_In_ T* p)
 {
 	return git_ptr<T>(p);
+}
+
+template<typename Ch, typename Traits, typename T>
+inline std::basic_ostream<Ch, Traits>& operator<<(std::basic_ostream<Ch, Traits>& os, const git_ptr<T>& g)
+{
+	return os << g.get_cookie();
+}
+
+template<typename Ch, typename Traits, typename T>
+inline std::basic_ostream<Ch, Traits>& operator<<(std::basic_ostream<Ch, Traits>& os, const atomic_git_ptr<T>& g)
+{
+	return os << g.get_cookie();
 }
 
 } // namespace com
