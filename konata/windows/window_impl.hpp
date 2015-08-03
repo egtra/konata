@@ -159,8 +159,10 @@ protected:
 	}
 
 #if !defined _MSC_VER || _MSC_VER > 1800
+	window_impl() = default;
 	window_impl(const window_impl&) = delete;
 	window_impl& operator=(const window_impl&) = delete;
+	~window_impl() = default;
 #endif
 };
 
