@@ -1,5 +1,5 @@
 /*
-git_ptr.hpp: Copyright (c) Egtra 2014
+git_ptr.hpp: Copyright (c) Egtra 2014-2016
 
 Distributed under the Boost Software License, Version 1.0.
 (See accompanying file LICENSE_1_0.txt or copy at
@@ -18,6 +18,8 @@ http://www.boost.org/LICENSE_1_0.txt )
 #include <utility> // swap
 #include <comdef.h>
 
+#include <konata/com/common.hpp>
+
 namespace konata
 {
 namespace com
@@ -26,12 +28,6 @@ namespace com
 class git_ptr_base
 {
 protected:
-	static void throw_if_failed(HRESULT hr)
-	{
-		if (FAILED(hr))
-			throw std::system_error(static_cast<int>(hr), std::system_category());
-	}
-
 	static IGlobalInterfaceTablePtr get_git()
 	{
 		IGlobalInterfaceTablePtr ret;
