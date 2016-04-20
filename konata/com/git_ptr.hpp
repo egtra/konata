@@ -140,7 +140,7 @@ template<typename T>
 class atomic_git_ptr : protected git_ptr_base
 {
 public:
-	atomic_git_ptr() throw() : m_cookie() {}
+	atomic_git_ptr() throw() : m_cookie(0) {}
 	atomic_git_ptr(_In_opt_ T* p) : m_cookie(register_git(p)) {}
 	explicit atomic_git_ptr(DWORD cookie) throw() : m_cookie(cookie) {}
 #if _MSC_VER >= 1600
