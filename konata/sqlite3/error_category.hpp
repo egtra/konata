@@ -12,7 +12,9 @@ http://www.boost.org/LICENSE_1_0.txt )
 #pragma once
 
 #include <system_error>
+#if !defined _SQLITE3_H_ && !defined SQLITE3_H
 #include "sqlite3.h"
+#endif
 
 namespace konata
 {
