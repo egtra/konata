@@ -1,5 +1,5 @@
 /*
-sqlite3/error_category.hpp: Copyright (c) Egtra 2015
+sqlite3/error_category.hpp: Copyright (c) Egtra 2015-2017
 
 Distributed under the Boost Software License, Version 1.0.
 (See accompanying file LICENSE_1_0.txt or copy at
@@ -19,7 +19,7 @@ namespace konata
 namespace sqlite3
 {
 
-const std::error_category& sqlite3_error_category()
+inline const std::error_category& sqlite3_error_category()
 {
 	class sqlite3_error_category : public std::error_category
 	{
