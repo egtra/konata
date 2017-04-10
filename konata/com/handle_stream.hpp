@@ -89,7 +89,7 @@ public:
   }
   IFACEMETHOD(Stat)(
     _Out_ STATSTG* pstatstg,
-    DWORD grfStatFlag) override
+    DWORD /*grfStatFlag*/) override
   {
     if (pstatstg != nullptr)
       *pstatstg = STATSTG();
